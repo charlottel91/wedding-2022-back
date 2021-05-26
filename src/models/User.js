@@ -6,11 +6,9 @@ const userSchema = Schema(
   {
     firstname: {
       type: String,
-      unique: true,
     },
     lastname: {
       type: String,
-      unique: true,
     },
     isChild: {
       type: Boolean,

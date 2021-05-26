@@ -4,7 +4,6 @@ module.exports = class UserController {
   static async apiCreateUser(req, res) {
     try {
       const value = req.body;
-      console.log(value, 'all users in back');
       const createdUsers = await value.map(user => UserService.createUser(user));
       res.json (createdUsers);
     } catch(error) {

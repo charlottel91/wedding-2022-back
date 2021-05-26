@@ -29,8 +29,8 @@
     "eslint": "^7.27.0"
   },
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
+    "start": "node server.js",
+    "dev": "nodemon server.js",
     "prettier:write": "prettier --write .",
     "prettier:check": "prettier --check .",
     "lint": "eslint . ",

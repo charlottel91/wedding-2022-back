@@ -13,7 +13,7 @@ module.exports = class UserService {
       const response = await new User(newUser).save();
       return response;
     } catch (error) {
-      return error;
+      console.log(error);
     }
   }
 };
