@@ -1,6 +1,6 @@
-const UserService = require('../services/UserService');
+const UserService = require('../services/GuestService');
 
-module.exports = class UserController {
+module.exports = class GuestController {
   static async apiCheckedIfUserExist(req, res) {
     try {
       const user = req.body.params;
@@ -11,17 +11,17 @@ module.exports = class UserController {
     }
   }
 
-  static async apiCreateUser(req, res) {
+  static async apiCreateGuest(req, res) {
     try {
       const value = req.body;
-      let userChecked = await UserService.checkedIfUserExist(value);
+      let userChecked = await UserService.checkedIfGuestExist(value);
       if (userChecked) {
         return res.status(409).json({
           msg: `${value.firstname.charAt(0).toUpperCase() + value.firstname.slice(1)} ${value.lastname.toUpperCase()} est déjà enregistré.e`,
           userChecked
         });
       } else {
-        UserService.createUser(value);
+        UserService.createGuest(value);
       }
       res.json (userChecked);
     } catch(error) {
