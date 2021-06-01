@@ -23,4 +23,4 @@ const guestSchema = Schema(
   {timestamps: true}
 );
 
-module.exports = mongoose.model('User', guestSchema);
+module.exports = mongoose.model('Guest', guestSchema);

@@ -1,4 +1,5 @@
 require('dotenv').config();
+const bodyParser = require('body-parser');
 const cors = require('cors');
 const express = require('express');
 const mongoose =  require('mongoose');
@@ -13,6 +14,8 @@ mongoose.connect(URI, {useNewUrlParser: true, useCreateIndex: true, useUnifiedTo
   .then(() => console.log('Connection Successful'))
   .catch(err => console.log(`Error in DB connection ${err}`));
 
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 app.use(cors({
   origin: process.env.CLIENT_PUBLIC_URL || 'http://localhost:3000'
 }));

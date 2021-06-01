@@ -1,6 +1,6 @@
 const Guest = require('../models/Guest');
 
-module.exports = class UserService {
+module.exports = class GuestService {
   static async createGuest(value) {
     try {
       const newGuest = {
@@ -19,8 +19,8 @@ module.exports = class UserService {
 
   static async checkedIfGuestExist(guest) {
     try {
-      let checkedUser = await Guest.findOne({ firstname: guest.firstname, lastname: guest.lastname });
-      return checkedUser;
+      let checkedGuest = await Guest.findOne({ firstname: guest.firstname, lastname: guest.lastname });
+      return checkedGuest;
     } catch (error) {
       console.log(error);
     }
