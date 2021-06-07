@@ -68,7 +68,7 @@ module.exports = class UserController {
       errors.push({ name: 'required' });
     }
     if (!password) {
-      errors.push({ passowrd: 'required' });
+      errors.push({ password: 'required' });
     }
     if (errors.length > 0) {
       return res.status(422).json({ errors: errors });
@@ -92,7 +92,7 @@ module.exports = class UserController {
             return res.status(200).json({
               success: true,
               token: access_token,
-              message: user
+              user: user
             });
           }
         }).catch(err => {
