@@ -6,7 +6,7 @@ exports.createJWT = (name, userId, duration) => {
     userId,
     duration
   };
-  const token = jwt.sign(Object.assign({}, payload), 'your_jwt_secret', {
+  const token = jwt.sign(Object.assign({}, payload), process.env.JWT_SECRET_KEY, {
     expiresIn: duration,
   });
   return token;
