@@ -22,7 +22,16 @@ module.exports = class GuestService {
       let checkedGuest = await Guest.findOne({ firstname: guest.firstname, lastname: guest.lastname });
       return checkedGuest;
     } catch (error) {
-      console.log(error);
+      return(error);
+    }
+  }
+
+  static async deleteGuest(guestId) {
+    try {
+      let deleteGuest = await Guest.deleteOne({_id: guestId});
+      return deleteGuest;
+    } catch (error) {
+      return(error);
     }
   }
 };

@@ -20,7 +20,8 @@ const guestSchema = Schema(
       type: Boolean,
     }
   },
-  {timestamps: true}
+  {timestamps: true},
+  {collection: 'Guest'}
 );
 
 module.exports = mongoose.model('Guest', guestSchema);

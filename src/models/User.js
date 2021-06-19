@@ -16,7 +16,7 @@ const userSchema = Schema(
       type: String, 
       required: true 
     },
-    guest: [{
+    guests: [{
       type: ObjectID,
       ref: 'Guest'
     }]

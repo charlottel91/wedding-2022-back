@@ -1,13 +1,11 @@
 const express = require('express');
-const GuestController = require('../controllers/guest.controller');
+const UserController = require('../controllers/user.controller');
 const AuthController = require('../controllers/auth.controller');
 
 const router = express.Router();
 
-router.post('/signup', AuthController.signup);
-router.post('/signin', AuthController.signin);
-router.post('/registration', GuestController.apiCreateGuest);
-router.get('/registration/:id');
-router.put('/registration/:id');
+router.post('/api/signup', AuthController.signup);
+router.post('/api/signin', AuthController.signin);
+router.put('/register/:id', UserController.apiCreateGuestInUser);
 
 module.exports = router;
