@@ -3,9 +3,10 @@ const bcrypt = require('bcrypt');
 const {
   createJWT,
 } = require('../utils/auth');
+const { getExistingUser, getUserByName } = require('../services/UserService');
 
-module.exports = class UserController {
-  static signup (req, res) {
+const AuthController = {
+  signup: (req, res) => {
     let { name, password, password_confirmation } = req.body;
     console.log(req.body);
     let errors = [];
@@ -59,48 +60,33 @@ module.exports = class UserController {
           errors: [{ error: 'Something went wrong' }]
         });
       });
-  }
+  },
   
-  static signin (req, res) {
+  signin: async (req, res, next) => {
     let { name, password } = req.body;
-    let errors = [];
-    if (!name) {
-      errors.push({ name: 'required' });
+
+    if (!name || !password) {
+      return next(res.status(404).json('L\'email et le mot de passe sont requis.'));
     }
-    if (!password) {
-      errors.push({ password: 'required' });
-    }
-    if (errors.length > 0) {
-      return res.status(422).json({ errors: errors });
-    }
-    User.findOne({ name: name }).then(user => {
-      if (!user) {
-        return res.status(404).json({
-          errors: [{ user: 'not found' }],
-        });
-      } else {
-        bcrypt.compare(password, user.password).then(isMatch => {
-          if (!isMatch) {
-            return res.status(400).json({ errors: [{ password: 'incorrect' }] 
-            });
-          } else {
-            let access_token = createJWT(
-              user.name,
-              user._id,
-              3600
-            );
-            return res.status(200).json({
-              success: true,
-              token: access_token,
-              user: user
-            });
-          }
-        }).catch(err => {
-          res.status(500).json({ errors: err});
-        });
+    try {
+      const user = await getExistingUser(name);
+      if(!user) return next(res.status(403).json('Ce compte n\'existe pas.'));
+
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+        return next(res.status(401).json('Les identifiants ne sont pas corrects.'));
       }
-    }).catch(err => {
-      res.status(500).json({ errors: err });
-    });
+
+      const userWithoutPassword = await getUserByName(name);
+      const token = createJWT(userWithoutPassword, '1h');
+      return res.status(200).json({
+        succes: true,
+        token,
+      });
+    } catch (err) {
+      res.status(500).json('Une erreur est survenue.');
+    }
   }
 };
+
+module.exports = AuthController;

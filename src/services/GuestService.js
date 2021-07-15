@@ -1,32 +1,56 @@
 const Guest = require('../models/Guest');
 
-module.exports = class GuestService {
-  static async createGuest(value) {
+const GuestService = {
+  getGuest: async (guestId) => {
+    try {
+      const guest = await Guest.findById({_id: guestId});
+      return guest;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  getGuestWithNames: async (guest) => {
+    try {
+      const checkedGuest = await Guest.findOne({firstname: guest.firstname, lastname: guest.lastname});
+      return checkedGuest;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  createGuest: async (value) => {
     try {
       const newGuest = {
         firstname: value.firstname.toLowerCase(),
         lastname: value.lastname.toLowerCase(),
-        isChild: value.child,
-        isVegetarian: value.vegetarian,
-        presentBrunch: value.brunch,
+        isChild: value.isChild,
+        isVegetarian: value.isVegetarian,
+        presentBrunch: value.presentBrunch,
       };
       const response = await new Guest(newGuest).save();
       return response;
     } catch (error) {
       console.log(error);
     }
-  }
+  },
 
-  static async checkedIfGuestExist(guest) {
+  UpdateGuest: async (guest) => {
     try {
-      let checkedGuest = await Guest.findOne({ firstname: guest.firstname, lastname: guest.lastname });
-      return checkedGuest;
+      const response = await Guest.updateOne({_id: guest._id},
+        {$set: {firstname: guest.firstname,
+          lastname: guest.lastname,
+          isChild: guest.isChild,
+          isVegetarian: guest.isVegetarian,
+          presentBrunch: guest.presentBrunch}} 
+      );
+      return response;
     } catch (error) {
-      return(error);
+      console.log(error);
     }
-  }
+  },
 
-  static async deleteGuest(guestId) {
+  deleteGuest: async (guestId) => {
     try {
       let deleteGuest = await Guest.deleteOne({_id: guestId});
       return deleteGuest;
@@ -35,3 +59,5 @@ module.exports = class GuestService {
     }
   }
 };
+
+module.exports = GuestService;
