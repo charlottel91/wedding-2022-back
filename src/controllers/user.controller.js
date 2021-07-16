@@ -38,19 +38,16 @@ const UserController = {
     }
   },
 
-  apiDeleteGuestInUser: async (req, res) => {
+  apiDeleteGuestInUser: async (req, res, next) => {
     try {
-      const value = req.body;
+      const guest = req.body;
       const paramsId = req.params.id;
-      const userChecked = await UserService.getUser(paramsId);
-      let guestChecked = await GuestService.checkedIfGuestExist(value);
-      if (userChecked && guestChecked) {
-        await GuestService.deleteGuest(value._id);
-        const updatedUser = await UserService.updateUserToDeletedGuest(paramsId, guestChecked._id);
-        return res.status(200).json(updatedUser);
-      }
+      await GuestService.deleteGuest(guest._id);
+      await UserService.updateUserToDeletedGuest(paramsId, guest._id);
+      const user = await UserService.getUser(paramsId);
+      return res.status(200).json(user);
     } catch(err) {
-      res.status(500).json('Une erreur est survenue.');
+      next(res.status(500).json('Une erreur est survenue.'));
     }
   }
 };
