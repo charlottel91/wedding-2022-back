@@ -20,6 +20,10 @@ const userSchema = Schema(
     guests: [{
       type: ObjectID,
       ref: 'Guest'
+    }],
+    carpooling: [{
+      type: ObjectID,
+      ref: 'Carpooling'
     }]
   },
   {collection: 'User'}
