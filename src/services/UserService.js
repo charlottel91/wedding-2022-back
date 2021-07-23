@@ -3,7 +3,7 @@ const User = require('../models/User');
 const UserService = {
   getUserByName: async (name) => {
     try {
-      const response = await User.findOne({name}).populate('guests').populate('isCarpooling').exec();
+      const response = await User.findOne({name}).populate('guests');
       return response;
     } catch(err) {
       console.log(err);
@@ -44,7 +44,7 @@ const UserService = {
         {$push: {guests: [guestId]}},
         {new : true}
       );
-      const updatedUser = await User.findById(paramsId).populate('guests').populate('isCarpooling').exec();
+      const updatedUser = await User.findById(paramsId).populate('guests');
       return updatedUser;
     } catch(err) {
       console.error(err.message);
@@ -61,7 +61,7 @@ const UserService = {
     } catch(err) {
       console.error(err.message);
     }
-  }
+  },
 };
 
 module.exports = UserService;
