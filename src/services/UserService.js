@@ -12,7 +12,7 @@ const UserService = {
 
   getUser: async (id) => {
     try {
-      const response = await User.findById(id).populate('guests');
+      const response = await User.findById(id).populate('guests', 'carpooling');
       return response;
     } catch(err) {
       console.log(err);
@@ -58,6 +58,20 @@ const UserService = {
         {$pull: {guests: { $in: [guestId] }}},
       );
       return response;
+    } catch(err) {
+      console.error(err.message);
+    }
+  },
+
+  updateUserToCreateCarpooling: async (paramsId, carpoolingId) => {
+    try {
+      await User.updateOne(
+        {_id: paramsId}, 
+        {$push: {carpooling: [carpoolingId]}},
+        {new : true}
+      );
+      const updatedUser = await User.findById(paramsId).populate('guests', 'carpooling');
+      return updatedUser;
     } catch(err) {
       console.error(err.message);
     }
