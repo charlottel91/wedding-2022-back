@@ -4,9 +4,10 @@ const AuthController = require('../controllers/auth.controller');
 
 const router = express.Router();
 
-router.get('/user/:id', UserController.apiGetOneUser);
 router.post('/api/signup', AuthController.signup);
 router.post('/api/signin', AuthController.signin);
+router.get('/user/:id', UserController.apiGetOneUser);
+router.post('/user/:id/carpooling', UserController.apiCreateCarpoolingInUser);
 router.put('/register/:id', UserController.apiCreateGuestInUser);
 router.put('/user/:id/delete/guest', UserController.apiDeleteGuestInUser);
 

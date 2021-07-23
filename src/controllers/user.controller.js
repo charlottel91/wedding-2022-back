@@ -18,8 +18,8 @@ const UserController = {
       const paramsId = req.params.id;
       if (guest._id) {
         await GuestService.UpdateGuest(guest);
-        const updateUser = await UserService.getUser(paramsId);
-        return next(res.status(201).json(updateUser));
+        const updatedUser = await UserService.getUser(paramsId);
+        return next(res.status(201).json(updatedUser));
       }
 
       const checkedIfGuestExistInGuest = await GuestService.getGuestWithNames(guest);
