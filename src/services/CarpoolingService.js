@@ -24,4 +24,4 @@ const CarpoolingService = {
   },
 };
 
-module.export = CarpoolingService;
+module.exports = CarpoolingService;
