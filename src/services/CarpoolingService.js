@@ -14,7 +14,8 @@ const CarpoolingService = {
     try {
       const response = await Carpooling.updateOne({_id: carpooling._id},
         {$set: {role: carpooling.role,
-          place: carpooling.place,
+          city: carpooling.city,
+          nb_seat: carpooling.nb_seat
         }} 
       );
       return response;
