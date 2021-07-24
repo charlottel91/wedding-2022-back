@@ -3,7 +3,7 @@ const User = require('../models/User');
 const UserService = {
   getUserByName: async (name) => {
     try {
-      const response = await User.findOne({name}).populate('guests', 'isCarpooling');
+      const response = await User.findOne({name}).populate('guests').populate('isCarpooling').exec();
       return response;
     } catch(err) {
       console.log(err);
@@ -12,7 +12,11 @@ const UserService = {
 
   getUser: async (id) => {
     try {
+<<<<<<< HEAD
       const response = await User.findById(id).populate('guests');
+=======
+      const response = await User.findById(id).populate('guests').populate('isCarpooling').exec();
+>>>>>>> cf7e0a6 (Add number of seats to carpooling.)
       return response;
     } catch(err) {
       console.log(err);
@@ -44,7 +48,7 @@ const UserService = {
         {$push: {guests: [guestId]}},
         {new : true}
       );
-      const updatedUser = await User.findById(paramsId).populate('guests', 'isCarpooling');
+      const updatedUser = await User.findById(paramsId).populate('guests').populate('isCarpooling').exec();
       return updatedUser;
     } catch(err) {
       console.error(err.message);
@@ -83,8 +87,12 @@ const UserService = {
         {$push: {isCarpooling: [carpoolingId]}},
         {new : true},
       );
+<<<<<<< HEAD
       const updatedUser = await User.findById(paramsId).populate('guests', 'isCarpooling');
 >>>>>>> be83219 (Add and modify carpooling.)
+=======
+      const updatedUser = await User.findById(paramsId).populate('guests').populate('isCarpooling').exec();
+>>>>>>> cf7e0a6 (Add number of seats to carpooling.)
       return updatedUser;
     } catch(err) {
       console.error(err.message);
