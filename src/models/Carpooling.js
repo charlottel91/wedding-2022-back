@@ -8,8 +8,12 @@ const carpoolingSchema = Schema(
       type: String,
       enum: ['DRIVER', 'PASSENGER'],
     },
-    place: {
+    city: {
       type: String,
+      trim: true,
+    },
+    nb_seat: {
+      type: Number,
     }
   },
   {timestamps: true},
