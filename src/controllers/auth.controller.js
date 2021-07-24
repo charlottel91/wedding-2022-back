@@ -8,7 +8,6 @@ const { getExistingUser, getUserByName } = require('../services/UserService');
 const AuthController = {
   signup: (req, res) => {
     let { name, password, password_confirmation } = req.body;
-    console.log(req.body);
     let errors = [];
     if (!name) {
       errors.push({ name: 'required' });

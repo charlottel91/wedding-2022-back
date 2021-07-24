@@ -3,7 +3,7 @@ const User = require('../models/User');
 const UserService = {
   getUserByName: async (name) => {
     try {
-      const response = await User.findOne({name}).populate('guests');
+      const response = await User.findOne({name}).populate('guests', 'isCarpooling');
       return response;
     } catch(err) {
       console.log(err);
@@ -12,7 +12,7 @@ const UserService = {
 
   getUser: async (id) => {
     try {
-      const response = await User.findById(id).populate('guests', 'carpooling');
+      const response = await User.findById(id).populate('guests', 'isCarpooling');
       return response;
     } catch(err) {
       console.log(err);
@@ -44,7 +44,7 @@ const UserService = {
         {$push: {guests: [guestId]}},
         {new : true}
       );
-      const updatedUser = await User.findById(paramsId).populate('guests');
+      const updatedUser = await User.findById(paramsId).populate('guests', 'isCarpooling');
       return updatedUser;
     } catch(err) {
       console.error(err.message);
@@ -67,10 +67,10 @@ const UserService = {
     try {
       await User.updateOne(
         {_id: paramsId}, 
-        {$push: {carpooling: [carpoolingId]}},
-        {new : true}
+        {$push: {isCarpooling: [carpoolingId]}},
+        {new : true},
       );
-      const updatedUser = await User.findById(paramsId).populate('guests', 'carpooling');
+      const updatedUser = await User.findById(paramsId).populate('guests', 'isCarpooling');
       return updatedUser;
     } catch(err) {
       console.error(err.message);
