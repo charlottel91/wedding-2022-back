@@ -65,7 +65,7 @@ const AuthController = {
     let { name, password } = req.body;
 
     if (!name || !password) {
-      return next(res.status(404).json('L\'email et le mot de passe sont requis.'));
+      return next(res.status(404).json('L\'identifiant et le mot de passe sont requis.'));
     }
     try {
       const user = await getExistingUser(name);
@@ -73,7 +73,7 @@ const AuthController = {
 
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
-        return next(res.status(401).json('Les identifiants ne sont pas corrects.'));
+        return next(res.status(401).json('L\'identifiant et/ou le mot de passe ne sont pas corrects.'));
       }
 
       const userWithoutPassword = await getUserByName(name);
