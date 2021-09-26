@@ -12,11 +12,7 @@ const UserService = {
 
   getUser: async (id) => {
     try {
-<<<<<<< HEAD
       const response = await User.findById(id).populate('guests');
-=======
-      const response = await User.findById(id).populate('guests').populate('isCarpooling').exec();
->>>>>>> cf7e0a6 (Add number of seats to carpooling.)
       return response;
     } catch(err) {
       console.log(err);
