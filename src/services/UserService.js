@@ -61,7 +61,7 @@ const UserService = {
     } catch(err) {
       console.error(err.message);
     }
-  },
+  }
 };
 
 module.exports = UserService;
