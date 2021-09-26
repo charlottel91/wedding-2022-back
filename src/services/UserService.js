@@ -61,38 +61,6 @@ const UserService = {
     } catch(err) {
       console.error(err.message);
     }
-  },
-
-  updateUserToCreateCarpooling: async (paramsId, carpoolingId) => {
-    try {
-      await User.updateOne(
-        {_id: paramsId}, 
-<<<<<<< HEAD
-<<<<<<< HEAD
-        {$push: {isCarpooling: [carpoolingId]}},
-        {new : true},
-      );
-      const updatedUser = await User.findById(paramsId).populate('guests').populate('isCarpooling').exec();
-=======
-        {$push: {carpooling: [carpoolingId]}},
-        {new : true}
-      );
-      const updatedUser = await User.findById(paramsId).populate('guests', 'carpooling');
->>>>>>> 64e32e4 (Add and modify carpooling.)
-=======
-        {$push: {isCarpooling: [carpoolingId]}},
-        {new : true},
-      );
-<<<<<<< HEAD
-      const updatedUser = await User.findById(paramsId).populate('guests', 'isCarpooling');
->>>>>>> be83219 (Add and modify carpooling.)
-=======
-      const updatedUser = await User.findById(paramsId).populate('guests').populate('isCarpooling').exec();
->>>>>>> cf7e0a6 (Add number of seats to carpooling.)
-      return updatedUser;
-    } catch(err) {
-      console.error(err.message);
-    }
   }
 };
 
