@@ -29,7 +29,7 @@ const AuthController = {
     User.findOne({name: name})
       .then(user=>{
         if(user){
-          return res.status(422).json({ errors: [{ user: 'name already exists' }] });
+          return res.status(422).json('Ce compte existe déjà !');
         }else {
           const user = new User({
             name: name,
@@ -54,6 +54,7 @@ const AuthController = {
           });
           });
         }
+        res.json(`Le compte ${name} a bien été créé !`);
       }).catch(err =>{
         res.status(500).json({
           err,
