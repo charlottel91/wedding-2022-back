@@ -17,6 +17,11 @@ const userSchema = Schema(
       required: true,
       select: false,
     },
+    role: {
+      type: String,
+      enum : ['ADMIN','OTHER'],
+      default: 'OTHER'
+    },
     guests: [{
       type: ObjectID,
       ref: 'Guest'
