@@ -7,7 +7,7 @@ const { getExistingUser, getUserByName } = require('../services/UserService');
 
 const AuthController = {
   signup: (req, res) => {
-    let { name, password, password_confirmation } = req.body;
+    let { name, password, password_confirmation, role } = req.body;
     let errors = [];
     if (!name) {
       errors.push({ name: 'required' });
@@ -34,6 +34,7 @@ const AuthController = {
           const user = new User({
             name: name,
             password: password,
+            role: role
           });
           bcrypt.genSalt(10, function(err, salt) { bcrypt.hash(password, salt, function(err, hash) {
             if (err) throw err;
