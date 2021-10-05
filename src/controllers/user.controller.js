@@ -2,6 +2,15 @@ const GuestService = require('../services/GuestService');
 const UserService = require('../services/UserService');
 
 const UserController = {
+  apiGetUsers: async (req, res, next) => {
+    try {
+      const users = await UserService.getUsers();
+      return res.status(200).json(users);
+    } catch(err) {
+      next(res.status(500).json({error: err}));
+    }
+  },
+
   apiGetOneUser: async (req, res, next) => {
     try {
       const paramsId = req.params.id;

@@ -19,6 +19,15 @@ const UserService = {
     }
   },
 
+  getUsers: async () => {
+    try {
+      const response = await User.find().populate('guests');
+      return response;
+    } catch(err) {
+      console.log(err);
+    }
+  },
+
   getExistingUser: async (name) => {
     try {
       const response = await User.findOne({name}).select('+password');
